@@ -18,6 +18,7 @@ form.addEventListener("submit", e => {
     const q = form.elements.input.value; 
     if (q === "") return;
     loader.style.display = 'block'; 
+    gallery.innerHTML = ''; 
     getPhotos(q).then(data => {
         if (data.hits.length === 0) {
             iziToast.error({
@@ -37,6 +38,7 @@ form.addEventListener("submit", e => {
         });
     });
 });
+
 
 
 
