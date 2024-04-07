@@ -13,8 +13,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 const loader = document.getElementById('loader');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-let currentPage = 1; // Зберігаємо поточну сторінку
-let totalHits = 0; 
+let currentPage = 1; 
 
 async function formListener() {
     form.addEventListener("submit", async (e) => {
@@ -32,7 +31,6 @@ async function formListener() {
                     position: 'topRight'
                 });
             } else {
-                totalHits = data.totalHits; 
                 const markup = imageRender(data);
                 gallery.innerHTML = markup;
                 lightbox.refresh();
@@ -56,28 +54,35 @@ async function loadMoreListener() {
     loadMoreBtn.addEventListener("click", async () => {
         const q = form.elements.input.value;
         loader.style.display = 'block'; 
+        currentPage++; 
         try {
             const data = await getPhotos(q, currentPage);
             const additionalMarkup = imageRender(data);
-            gallery.innerHTML += additionalMarkup;
-            lightbox.refresh();
-            currentPage++; 
-            if (gallery.querySelectorAll('img').length >= totalHits) {
-                loadMoreBtn.style.display = 'none'; 
-                iziToast.info({
-                    position: "topRight",
-                    message:"We're sorry, but you've reached the end of search results."
-                });
-            }
-            loader.style.display = 'none'; 
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = additionalMarkup;
+            const images = tempDiv.querySelectorAll('img');
+            let loadedImagesCount = 0;
+            images.forEach(img => {
+                img.onload = () => {
+                    loadedImagesCount++;
+                    if (loadedImagesCount === images.length) {
+                        gallery.innerHTML += additionalMarkup;
+                        loader.style.display = 'none'; 
+                        lightbox.refresh();
+                    }
+                };
+            });
         } catch (err) {
             iziToast.error({
                 position: "topRight",
                 message:"Sorry, there was an error loading more images. Please try again!"
             });
         }
+        
     });
 };
+
+
 
 formListener();
 loadMoreListener();
