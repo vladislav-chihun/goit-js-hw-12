@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getPhotos(q) {
+export function getPhotos(q, page) {
     const API_KEY = '43242256-64b8ba54a0ed56e09a2e1fe41';
     const BASE_URL = "https://pixabay.com/api/?key=" + API_KEY;
     const params = new URLSearchParams({
@@ -9,6 +9,8 @@ export function getPhotos(q) {
         image_type: "photo",
         orientation: "horizontal",
         safesearch: true,
+        per_page: 15,
+        page: page // Враховуємо параметр сторінки
     });
     const URL = `${BASE_URL}&${params}`;
     return axios.get(URL).then(res => res.data);
