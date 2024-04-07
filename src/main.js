@@ -30,6 +30,7 @@ async function formListener() {
                     message: "Sorry, there are no images matching your search query. Please try again!",
                     position: 'topRight'
                 });
+                loadMoreBtn.style.display = 'none';
             } else {
                 const markup = imageRender(data);
                 gallery.innerHTML = markup;
