@@ -57,6 +57,14 @@ async function loadMoreListener() {
         currentPage++; 
         try {
             const data = await getPhotos(q, currentPage);
+            if (data.hits.length === 0) {
+                iziToast.info({
+                    message: "Sorry, there are no more images available.",
+                    position: 'topRight'
+                });
+                loader.style.display = 'none'; 
+                return; 
+            }
             const additionalMarkup = imageRender(data);
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = additionalMarkup;
@@ -81,6 +89,7 @@ async function loadMoreListener() {
         
     });
 };
+
 
 
 
