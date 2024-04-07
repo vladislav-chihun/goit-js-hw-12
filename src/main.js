@@ -13,7 +13,8 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 const loader = document.getElementById('loader');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-let currentPage = 1; 
+let currentPage = 1; // Зберігаємо поточну сторінку
+let totalHits = 0; 
 
 async function formListener() {
     form.addEventListener("submit", async (e) => {
@@ -31,6 +32,7 @@ async function formListener() {
                     position: 'topRight'
                 });
             } else {
+                totalHits = data.totalHits; 
                 const markup = imageRender(data);
                 gallery.innerHTML = markup;
                 lightbox.refresh();
@@ -60,6 +62,13 @@ async function loadMoreListener() {
             gallery.innerHTML += additionalMarkup;
             lightbox.refresh();
             currentPage++; 
+            if (gallery.querySelectorAll('img').length >= totalHits) {
+                loadMoreBtn.style.display = 'none'; 
+                iziToast.info({
+                    position: "topRight",
+                    message:"We're sorry, but you've reached the end of search results."
+                });
+            }
             loader.style.display = 'none'; 
         } catch (err) {
             iziToast.error({
