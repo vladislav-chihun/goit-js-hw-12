@@ -13,7 +13,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 const loader = document.getElementById('loader');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-let currentPage = 1; // Зберігаємо поточну сторінку
+let currentPage = 1; 
 
 async function formListener() {
     form.addEventListener("submit", async (e) => {
@@ -22,7 +22,7 @@ async function formListener() {
         if (q === "") return;
         loader.style.display = 'block'; 
         gallery.innerHTML = ''; 
-        currentPage = 1; // Початкова сторінка при новому пошуку
+        currentPage = 1; 
         try {
             const data = await getPhotos(q, currentPage);
             if (data.hits.length === 0) {
@@ -35,9 +35,9 @@ async function formListener() {
                 gallery.innerHTML = markup;
                 lightbox.refresh();
                 if (data.totalHits > 15) {
-                    loadMoreBtn.style.display = 'block'; // Показуємо кнопку "Load More" якщо загальна кількість зображень більше 15
+                    loadMoreBtn.style.display = 'block'; 
                 } else {
-                    loadMoreBtn.style.display = 'none'; // Ховаємо кнопку "Load More", якщо загальна кількість зображень менше або дорівнює 15
+                    loadMoreBtn.style.display = 'none'; 
                 }
             }
             loader.style.display = 'none'; 
@@ -59,7 +59,7 @@ async function loadMoreListener() {
             const additionalMarkup = imageRender(data);
             gallery.innerHTML += additionalMarkup;
             lightbox.refresh();
-            currentPage++; // Збільшуємо поточну сторінку
+            currentPage++; 
             loader.style.display = 'none'; 
         } catch (err) {
             iziToast.error({

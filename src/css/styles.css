@@ -22,14 +22,14 @@ input {
   padding-left: 16px;
 }
 input::placeholder {
-  color: #808080; /* Цвет текста placeholder */
+  color: #808080;
 }
 input:hover {
   border: 1px solid #000;
 }
 input:focus {
   border: 1px solid #4e75ff;
-  outline: none; /* Убираем подсветку при фокусе */
+  outline: none;
 }
 button {
   border-radius: 8px;
@@ -105,15 +105,15 @@ li {
   margin-top: 8px;
   margin-bottom: 8px;
 }
-/* CSS */
+
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
-  display: none; /* Приховуємо завантажувач за замовчуванням */
+  display: none;
 }
 
 @keyframes spin {
@@ -129,13 +129,10 @@ li {
   height: 120px;
   animation: spin 2s linear infinite;
   display: none;
-  position: fixed; /* Позиционируем элемент относительно окна браузера */
-  top: 30%; /* Положение от верхнего края */
-  left: 45%; /* Положение от левого края */
-  transform: translate(
-    -50%,
-    -50%
-  ); /* Смещаем элемент на половину его ширины и высоты назад, чтобы центр элемента совпадал с центром экрана */
+  position: fixed;
+  top: 30%;
+  left: 45%;
+  transform: translate(-50%, -50%);
 }
 p {
   font-family: 'Montserrat', sans-serif;

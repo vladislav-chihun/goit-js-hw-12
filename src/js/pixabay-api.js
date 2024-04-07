@@ -10,7 +10,7 @@ export function getPhotos(q, page) {
         orientation: "horizontal",
         safesearch: true,
         per_page: 15,
-        page: page // Враховуємо параметр сторінки
+        page: page 
     });
     const URL = `${BASE_URL}&${params}`;
     return axios.get(URL).then(res => res.data);
